@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.entity.Showtime;
 
 @Repository
-public interface ShowtimeRepository  extends JpaRepository<Showtime, Long>{
+public interface ShowtimeRepository  extends JpaRepository<Showtime, String>{
     List<Showtime> findByStartTimeAfter(LocalDateTime now);
 }

@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.repository.MovieRepository;
+import com.example.demo.dto.MovieDTO;
 import com.example.demo.entity.Movie;
 
 @Service
@@ -20,8 +21,21 @@ public class MovieService {
         return movieRepository.findAll();
     }
 
-    public Optional<Movie> getMovieById(Long id) {
+    public Optional<Movie> getMovieById(String id) {
         return movieRepository.findById(id);
+    }
+
+    public Movie saveMovie(Movie movie) {
+        return movieRepository.save(movie);
+    }
+
+    public boolean deleteMovie(String id) {
+        Optional<Movie> movie = movieRepository.findById(id);
+        if(movie.isPresent()) {
+            movieRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 
 }
