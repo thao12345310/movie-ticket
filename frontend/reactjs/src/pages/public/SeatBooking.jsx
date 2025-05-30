@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import NavBar from "../components/NavBar";
+import NavBar from "../../components/NavBar";
 import {
   Container,
   Row,
@@ -13,7 +13,7 @@ import {
   ProgressBar,
 } from "react-bootstrap";
 import { FaCouch, FaCheck, FaLock, FaCrown, FaHeart } from "react-icons/fa";
-import { isAuthenticated, getToken } from "../utils/auth";
+import { isAuthenticated, getToken } from "../../utils/auth";
 
 const rows = "ABCDEFGHIJK".split("");
 const cols = Array.from({ length: 12 }, (_, i) => i + 1);
@@ -217,11 +217,8 @@ const SeatBooking = () => {
     Promise.all(
       selectedSeats.map((seatNumber) =>
         axios.post(
-          "http://localhost:8080/api/bookings",
-          {
-            showtimeId,
-            seatNumber,
-          },
+          `http://localhost:8080/api/bookings?showtimeId=${showtimeId}&seatNumber=${seatNumber}`,
+          null,
           { headers }
         )
       )
@@ -237,7 +234,12 @@ const SeatBooking = () => {
       .catch((error) => {
         console.error("Lỗi khi đặt vé:", error);
         if (error.response && error.response.status === 401) {
-          alert("Phiên đăng nhập hết hạn, vui lòng đăng nhập lại!");
+          alert(
+            "Phiên đăng nhập của bạn đã hết hạn hoặc không hợp lệ. Vui lòng đăng nhập lại!"
+          );
+          // Lưu URL hiện tại để sau khi đăng nhập có thể quay lại
+          const currentUrl = `/seat-booking?showtimeId=${showtimeId}`;
+          sessionStorage.setItem("redirectAfterLogin", currentUrl);
           navigate("/login");
         } else {
           alert("Có lỗi xảy ra khi đặt vé, vui lòng thử lại!");

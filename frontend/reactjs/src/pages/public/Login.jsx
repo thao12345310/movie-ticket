@@ -10,8 +10,8 @@ import {
 } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import NavBar from "../components/NavBar";
-import { login } from "../utils/auth";
+import NavBar from "../../components/NavBar";
+import { login } from "../../utils/auth";
 
 function Login() {
   const [username, setUsername] = useState("");

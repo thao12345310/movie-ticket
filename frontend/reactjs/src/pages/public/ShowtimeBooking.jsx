@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { Container, Card, Button, Row, Col, Alert } from "react-bootstrap";
-import NavBar from "../components/NavBar";
+import NavBar from "../../components/NavBar";
 
 function ShowtimeBooking() {
   const { movieId } = useParams();

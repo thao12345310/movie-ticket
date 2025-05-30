@@ -18,7 +18,7 @@ public class BookingController {
     private BookingService bookingService;
 
     @PostMapping
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<Booking> createBooking(@RequestParam String showtimeId, @RequestParam String seatNumber) {
         Booking booking = bookingService.createBooking(showtimeId, seatNumber);
         return ResponseEntity.ok(booking);

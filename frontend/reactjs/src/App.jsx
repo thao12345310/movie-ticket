@@ -1,15 +1,15 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
+import Home from "./pages/public/Home";
 import UpdateMovie from "./pages/admin/UpdateMovie";
-import SeatBooking from "./pages/SeatBooking";
+import SeatBooking from "./pages/public/SeatBooking";
 import ShowtimeManagement from "./pages/admin/ShowtimeManagement";
-import ShowtimeBooking from "./pages/ShowtimeBooking";
+import ShowtimeBooking from "./pages/public/ShowtimeBooking";
 import RoomManagement from "./pages/admin/RoomManagement";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import Profile from "./pages/Profile";
+import Login from "./pages/public/Login";
+import Signup from "./pages/public/Signup";
+import Profile from "./pages/public/Profile";
 import UserManagement from "./pages/admin/UserManagement";
 
 function App() {
