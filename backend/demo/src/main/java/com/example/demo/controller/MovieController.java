@@ -26,9 +26,9 @@ import com.example.demo.mapper.MovieMapper;
 import com.example.demo.service.MovieService;
 
 
-@CrossOrigin(origins = "http://localhost:3000") // Cho phép React gọi API
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/movies")
+@RequestMapping("/api/movies")
 public class MovieController {
     private final MovieService movieService;
 

@@ -1,10 +1,17 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "bookings")
-
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Booking {
 
     @Id
@@ -15,13 +22,29 @@ public class Booking {
     @JoinColumn(name = "showtime_id", nullable = false)
     private Showtime showtime;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
     @Column(nullable = false)
     private String seatNumber;
+    
+    @Column(nullable = false)
+    private LocalDateTime bookingTime = LocalDateTime.now();
+    
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private BookingStatus status = BookingStatus.RESERVED;
+    
+    public enum BookingStatus {
+        RESERVED,
+        CONFIRMED,
+        CANCELLED
+    }
 
-    public Booking() {}
-
-    public Booking(Showtime showtime, String seatNumber) {
+    public Booking(Showtime showtime, User user, String seatNumber) {
         this.showtime = showtime;
+        this.user = user;
         this.seatNumber = seatNumber;
     }
 

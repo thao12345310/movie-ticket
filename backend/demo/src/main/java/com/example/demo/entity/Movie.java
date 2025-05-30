@@ -3,10 +3,13 @@ package com.example.demo.entity;
 import jakarta.persistence.*; // tiêu chuẩn JPA mà các thư viện như Hibernate triển khai để thao tác với cơ sở dữ liệu mà không cần viết SQL thủ công
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity // đánh dấu đây là entity
 @Table(name = "movies") // ánh xạ với bảng movies trong database
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Movie {
 
     @Id // định nghĩa cột primary key
@@ -27,12 +30,4 @@ public class Movie {
 
     private String genre;
 
-    public Movie() {}
-
-    public Movie(String title, String description, int duration, String posterUrl) {
-        this.title = title;
-        this.description = description;
-        this.duration = duration;
-        this.posterUrl = posterUrl;
-    }
 }

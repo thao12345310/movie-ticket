@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import axios from "axios";
-import NavBar from "../components/NavBar";
-import MovieList from "../components/MovieList";
+import NavBar from "../../components/NavBar";
+import MovieList from "../../components/MovieList";
 function UpdateMovie() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
