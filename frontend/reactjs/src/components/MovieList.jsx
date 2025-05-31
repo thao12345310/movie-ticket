@@ -2,11 +2,15 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Button, Card, Row, Col, Modal } from "react-bootstrap";
+import { getUser } from "../utils/auth";
+import "../assets/MovieList.css";
 
 function MovieList() {
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [show, setShow] = useState(false);
+  const [user, setUser] = useState(null);
+
   const navigate = useNavigate();
 
   const handleClose = () => setShow(false);
@@ -15,6 +19,13 @@ function MovieList() {
     setSelectedMovie(movie); // Lưu phim được chọn
     setShow(true);
   };
+
+  useEffect(() => {
+    const user = getUser();
+    setUser(user);
+  });
+
+  const isAdmin = user && user.roles && user.roles.includes("ROLE_ADMIN");
 
   useEffect(() => {
     axios
@@ -54,18 +65,30 @@ function MovieList() {
             >
               <Card.Img variant="top" src={movie.posterUrl} />
               <Card.Body>
-                <Card.Title>{movie.title}</Card.Title>
+                <Card.Title className="card-title-ellipsis">
+                  {movie.title}
+                </Card.Title>
                 <Card.Text>Thể loại: {movie.genre}</Card.Text>
                 <div className="d-flex gap-2 mb-2">
                   <Button onClick={() => handleShowDetails(movie)}>
                     Xem chi tiết
                   </Button>
-                  <Button
-                    variant="danger"
-                    onClick={() => handleDeleteMovie(movie.id)}
-                  >
-                    Xóa phim
-                  </Button>
+                  {isAdmin && (
+                    <Button
+                      variant="danger"
+                      onClick={() => handleDeleteMovie(movie.id)}
+                    >
+                      Xóa phim
+                    </Button>
+                  )}
+                  {!isAdmin && (
+                    <Button
+                      variant="primary"
+                      onClick={() => handleBookTicket(movie.id)}
+                    >
+                      Đặt vé ngay
+                    </Button>
+                  )}
                 </div>
               </Card.Body>
             </Card>
