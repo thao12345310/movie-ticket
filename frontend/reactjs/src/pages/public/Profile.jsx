@@ -193,26 +193,44 @@ function Profile() {
                           </Badge>
                         </Card.Header>
                         <Card.Body>
-                          <Row>
-                            <Col md={8}>
-                              <p>
-                                <strong>Phim:</strong>{" "}
-                                {booking.showtime?.movie?.title ||
-                                  "Không có thông tin"}
-                              </p>
-                              <p>
-                                <strong>Suất chiếu:</strong>{" "}
-                                {formatDateTime(booking.showtime?.startTime)}
-                              </p>
-                              <p>
-                                <strong>Ghế:</strong> {booking.seatNumber}
-                              </p>
-                              <p>
-                                <strong>Thời gian đặt:</strong>{" "}
-                                {formatDateTime(booking.bookingTime)}
-                              </p>
+                          <Row className="align-items-center">
+                            <Col md={3}>
+                              <img
+                                src={
+                                  booking.movieImage ||
+                                  "https://via.placeholder.com/150x225"
+                                }
+                                alt={booking.movieTitle}
+                                className="img-fluid rounded shadow-sm"
+                                style={{
+                                  width: "100%",
+                                  maxHeight: "200px",
+                                  objectFit: "cover",
+                                }}
+                              />
                             </Col>
-                            <Col md={4} className="text-end">
+                            <Col md={7}>
+                              <h5 className="mb-3">
+                                {booking.movieTitle || "Không có thông tin"}
+                              </h5>
+                              <div className="d-flex flex-column gap-2">
+                                <div>
+                                  <i className="bi bi-clock me-2"></i>
+                                  <strong>Suất chiếu:</strong>{" "}
+                                  {formatDateTime(booking.startTime)}
+                                </div>
+                                <div>
+                                  <i className="bi bi-ticket-perforated me-2"></i>
+                                  <strong>Ghế:</strong> {booking.seatNumber}
+                                </div>
+                                <div>
+                                  <i className="bi bi-calendar-check me-2"></i>
+                                  <strong>Thời gian đặt:</strong>{" "}
+                                  {formatDateTime(booking.bookingTime)}
+                                </div>
+                              </div>
+                            </Col>
+                            <Col md={2} className="text-end">
                               {booking.status === "RESERVED" && (
                                 <Button
                                   variant="outline-danger"

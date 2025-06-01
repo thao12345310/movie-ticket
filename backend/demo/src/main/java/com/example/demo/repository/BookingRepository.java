@@ -1,5 +1,6 @@
 package com.example.demo.repository;
 
+import com.example.demo.dto.BookingDTO;
 import com.example.demo.entity.Booking;
 import com.example.demo.entity.Showtime;
 import com.example.demo.entity.User;

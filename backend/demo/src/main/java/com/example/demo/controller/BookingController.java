@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.BookingDTO;
 import com.example.demo.entity.Booking;
 import com.example.demo.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,8 @@ public class BookingController {
 
     @GetMapping("/my-bookings")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<List<Booking>> getMyBookings() {
-        List<Booking> bookings = bookingService.getMyBookings();
+    public ResponseEntity<List<BookingDTO>> getMyBookings() {
+        List<BookingDTO> bookings = bookingService.getMyBookings();
         return ResponseEntity.ok(bookings);
     }
 

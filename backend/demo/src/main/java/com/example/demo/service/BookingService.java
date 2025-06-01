@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.demo.repository.BookingRepository;
 import com.example.demo.repository.ShowtimeRepository;
 import com.example.demo.repository.UserRepository;
+import com.example.demo.dto.BookingDTO;
 import com.example.demo.entity.Booking;
 import com.example.demo.entity.Showtime;
 import com.example.demo.entity.User;
@@ -53,15 +55,30 @@ public class BookingService {
         return bookingRepository.save(booking);
     }
 
-    public List<Booking> getMyBookings() {
+    public List<BookingDTO> getMyBookings() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         
         User user = userRepository.findById(userDetails.getId())
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy người dùng"));
 
-        return bookingRepository.findByUser(user);
+        List<Booking> bookings = bookingRepository.findByUser(user);
+        return bookings.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
+
+    private BookingDTO convertToDTO(Booking booking) {
+        BookingDTO dto = new BookingDTO();
+        dto.setId(booking.getId());
+        dto.setStartTime(booking.getShowtime().getStartTime());
+        dto.setSeatNumber(booking.getSeatNumber());
+        dto.setStatus(booking.getStatus().toString());
+        dto.setMovieTitle(booking.getShowtime().getMovie().getTitle());
+        dto.setMovieImage(booking.getShowtime().getMovie().getPosterUrl());
+        return dto;
+    }
+    
 
     public Booking getBookingById(Long id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

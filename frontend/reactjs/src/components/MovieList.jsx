@@ -23,7 +23,7 @@ function MovieList() {
   useEffect(() => {
     const user = getUser();
     setUser(user);
-  });
+  }, []);
 
   const isAdmin = user && user.roles && user.roles.includes("ROLE_ADMIN");
 

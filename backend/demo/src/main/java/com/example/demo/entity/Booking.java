@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "bookings")
 @Data
@@ -19,6 +21,7 @@ public class Booking {
     private Long id;
 
     @ManyToOne // một suất chiếu có nhiều vé
+    @JsonIgnore
     @JoinColumn(name = "showtime_id", nullable = false)
     private Showtime showtime;
 
