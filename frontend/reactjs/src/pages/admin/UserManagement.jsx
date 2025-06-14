@@ -62,7 +62,7 @@ function UserManagement() {
     };
 
     axios
-      .get("http://localhost:8080/users", config)
+      .get("http://localhost:8080/api/admin/users", config)
       .then((response) => {
         const usersData = Array.isArray(response.data) ? response.data : [];
         setUsers(usersData);

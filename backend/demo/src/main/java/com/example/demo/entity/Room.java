@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -21,7 +22,6 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private String name;        // Tên phòng (VD: Phòng 1, Phòng 2...)
-    private String showtimeId;  // ID của showtime
     
     // Mặc định tất cả các phòng đều có cùng layout
     // Số hàng và số cột được cố định cho tất cả các phòng
@@ -31,7 +31,7 @@ public class Room {
     // Mặc định tất cả các phòng đều thuộc cùng một rạp và cùng loại
     public static final String ROOM_TYPE = "2D";
 
-    @JsonManagedReference
+    @JsonIgnore
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     private List<Showtime> showtimes;
 }
